@@ -89,6 +89,11 @@ test_that("read_cells: (for csv) chains works", {
   lvlsdchk <- lvlsd[1:6] %>% purrr::map(read_cells)
   lvldchk <- lvld %>% purrr::map(read_cells)
 
+  expect_identical(
+    read_cells(lvlsd[[5]], from_level = 4),
+    read_cells(lvlsd[[5]])
+  )
+
   expect_error(read_cells(lvlsd[[7]]), "No 'read_cells_stage' attribute found!")
   expect_true(lvlsdchk %>% purrr::map_lgl(~ identical(.x, lvlsdchk[[1]])) %>% all())
   expect_true(lvldchk %>% purrr::map_lgl(~ identical(.x, lvldchk[[1]])) %>% all())
@@ -166,9 +171,8 @@ test_that("read_cells: external packages works (except pdf)", {
 
 test_that("read_cells: external packages works (for pdf)", {
 
-  # perform this only in windows
+  # perform this only in windows and linux
   skip_on_os("mac")
-  skip_on_os("linux")
   skip_on_os("solaris")
 
   skip_if_not_installed("tabulizer")
@@ -182,7 +186,7 @@ test_that("read_cells: external packages works (for pdf)", {
         stringr::str_split("\\.") %>%
         purrr::map_chr(1)))
 
-  # this tested on only windows
+  # this tested on only windows and linux (Travis)
   # for known issue https://github.com/ropensci/tabulizer/issues/106
   dm <- dm %>% dplyr::filter(original %in% c("pdf", "csv"))
 

@@ -23,11 +23,41 @@ test_that("etc works", {
   expect_equal(norm_this(0.6), 1)
   expect_equal(norm_this(0.1), 0)
 
+  # once fj is called through purrr::reduce covr is not seeing it
+  # writing separate test for it
+  expect_equal(
+    fj(tibble(x = c(1, 2), y = 2), tibble(x = c(2, 3), y0 = 2), join_by = "x"),
+    tibble(x = c(1, 2, 3), y = c(2, 2, NA), y0 = c(NA, 2, 2))
+  )
+
+  expect_error(
+    fj(tibble(x = c(1, 2), y = 2), tibble(x = c(2, 3), y = 2), join_by = "x"),
+    "unexpected error while joining"
+  )
+
+  expect_equal(
+    fj(tibble(x = c(1, 2), y = 2), tibble(x = c(2, 3), y = 2), join_by = "x", sallow_join = TRUE),
+    tibble(x = c(1, 2, 3), y = c(2, 2, ""))
+  )
+
+  expect_equal(
+    fj(tibble(x = c(1, 2), y = 2), tibble(x = c(2, 3), y = c(2, NA)), join_by = "x", sallow_join = TRUE),
+    tibble(x = c(1, 2, 3), y = c(2, 2, ""))
+  )
+
+  expect_equal(
+    fj(tibble(x = c(1, 2), y = 2), tibble(x = c(2, 3), y = 3), join_by = "x", sallow_join = TRUE, sep = "+"),
+    tibble(x = c(1, 2, 3), y = c("2+", "2+3", "+3"))
+  )
+
   dc0 <- readRDS("testdata/enron_from_unpivotr_processed.rds") %>%
     analyze_cells()
 
-  dc00 <- dc0 %>%
-    compose_cells(post_process = FALSE)
+  expect_warning(
+    dc00 <- dc0 %>%
+      compose_cells_raw(post_process = FALSE, ask_user = FALSE),
+    "failed to compose"
+  )
 
   dc01 <- dc00 %>%
     collate_columns(combine_threshold = 0.1)
@@ -80,12 +110,17 @@ test_that("etc works", {
 })
 
 test_that("doc works", {
+
+  # CRAN system level dependency, which is not good idea
+  skip_on_cran()
+
   #  too slow in local windows
   if (!isTRUE(as.logical(Sys.getenv("CI")))) {
+    # to test in local (windows) open LibreOffice outside and comment following
     skip_on_os("windows")
   }
 
-  u <- possible_to_support()
+  u <- possible_to_support(print_info = FALSE)
   fty <- u %>%
     dplyr::filter(support_possible) %>%
     dplyr::pull(file_type)
