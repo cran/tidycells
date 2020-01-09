@@ -12,19 +12,21 @@ checks](https://cranchecks.info/badges/summary/tidycells)](https://cran.r-projec
 status](https://travis-ci.org/r-rudra/tidycells.svg?branch=master)](https://travis-ci.org/r-rudra/tidycells)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/r-rudra/tidycells?branch=master&svg=true)](https://ci.appveyor.com/project/bedantaguru/tidycells)
-[![Codecov Coverage
-Status](https://codecov.io/gh/r-rudra/tidycells/branch/master/graph/badge.svg)](https://codecov.io/gh/r-rudra/tidycells?branch=master)
-[![Coveralls Coverage
-Status](https://coveralls.io/repos/github/r-rudra/tidycells/badge.svg?branch=master)](https://coveralls.io/github/r-rudra/tidycells?branch=master)
+[![R-hub
+checks](https://img.shields.io/badge/R_Hub-10/20_OK-green?style=flat-square&logo=R)](https://github.com/r-rudra/tidycells/blob/master/dev-notes.md#all-r-hub-build-summary)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Codecov Coverage
+Status](https://codecov.io/gh/r-rudra/tidycells/branch/master/graph/badge.svg)](https://codecov.io/gh/r-rudra/tidycells?branch=master)
+[![Coveralls Coverage
+Status](https://coveralls.io/repos/github/r-rudra/tidycells/badge.svg?branch=master&service=github)](https://coveralls.io/github/r-rudra/tidycells?branch=master)
+[![Lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg?style=flat-square)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Dependency
-status](https://img.shields.io/badge/Dependencies-9/28-orange.svg)](https://CRAN.R-project.org/package=tidycells)
+status](https://img.shields.io/badge/Depends-9/28-orange.svg?style=flat-square)](https://CRAN.R-project.org/package=tidycells)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://raw.githubusercontent.com/r-rudra/tidycells/master/LICENSE.md)
 [![See
-DevNotes](https://img.shields.io/badge/See-DevNotes-blue.svg)](https://github.com/r-rudra/tidycells/blob/master/dev-notes.md)
+DevNotes](https://img.shields.io/badge/See-DevNotes-blue.svg?style=flat-square)](https://github.com/r-rudra/tidycells/blob/master/dev-notes.md)
 
 <!-- badges: end -->
 
@@ -109,8 +111,7 @@ version comes with prebuilt-vignette*).
 
 ## Quick Overview
 
-Let’s take a quick look at an example data as given
-in
+Let’s take a quick look at an example data as given in
 
 ``` r
 system.file("extdata", "marks.xlsx", package = "tidycells", mustWork = TRUE)
@@ -146,8 +147,7 @@ system.file("extdata", "marks.xlsx", package = "tidycells", mustWork = TRUE) %>%
 | Score       | Female      | School C    | Name         | U Gupta            | Sheet1     | 38    |
 
 The function `read_cells` is a set of ordered operations connected
-together. The flowchart of
-`read_cells`:
+together. The flowchart of `read_cells`:
 
 <img src="vignettes/ext/read_cells.svg" width="356px" style="display: block; margin: auto;" />
 
@@ -184,8 +184,7 @@ dc <- compose_cells(da, print_attribute_overview = TRUE)
 
 <img src="vignettes/ext/compose_cells_cli1.png" width="451px" />
 
-If you want a well-aligned columns then you may like to
-do
+If you want a well-aligned columns then you may like to do
 
 ``` r
 # bit tricky and tedious unless you do print_attribute_overview = TRUE in above line
